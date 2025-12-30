@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Working Calendar</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- 顶部标题与月份切换 -->
+    <header class="app-header">
+      <div class="logo-wrap">
+        <!-- 左侧卷轴 + 羽毛笔简易 SVG 作为 logo -->
+        <div class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+            <!-- 卷轴主体 -->
+            <rect x="12" y="8" width="40" height="40" rx="8" ry="8" fill="#ffffff" stroke="#333333" stroke-width="2" />
+            <!-- 卷轴左侧卷边 -->
+            <path d="M12 14 C4 14 4 26 12 26" fill="#ffffff" stroke="#333333" stroke-width="2" />
+            <!-- 卷轴内部几条横线 -->
+            <line x1="20" y1="20" x2="46" y2="20" stroke="#555555" stroke-width="2" />
+            <line x1="20" y1="26" x2="44" y2="26" stroke="#555555" stroke-width="1.8" />
+            <line x1="20" y1="32" x2="40" y2="32" stroke="#555555" stroke-width="1.6" />
+            <!-- 羽毛笔 -->
+            <path d="M42 18 C56 10 66 14 72 22 C64 24 56 30 52 36 Z" fill="#e6b94c" stroke="#435129" stroke-width="2" />
+            <line x1="52" y1="20" x2="60" y2="30" stroke="#435129" stroke-width="1.4" />
+          </svg>
+        </div>
+        <h1 class="logo-title">Working Calender</h1>
+        <p class="subtitle">本地存储版 · 支持任务进度拖拽</p>
+      </div>
+      <div class="month-switch">
+        <button id="prev-month" aria-label="上一月">←</button>
+        <div id="month-label"></div>
+        <button id="next-month" aria-label="下一月">→</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- 日历区域 -->
+      <section class="card">
+        <h2>月视图</h2>
+        <div class="calendar" id="calendar"></div>
+      </section>
+
+      <!-- 任务区域 -->
+      <section class="card">
+        <div class="tasks-header">
+          <div>
+            <h2>待办事项</h2>
+            <p id="selected-date-label" class="subtitle"></p>
+          </div>
+          <button id="add-today" class="link-btn">跳转到今天</button>
+        </div>
+
+        <form id="task-form" class="task-form">
+          <input id="task-title" type="text" placeholder="任务名称" required />
+          <button type="submit">添加</button>
+        </form>
+
+        <div id="task-list" class="task-list"></div>
+      </section>
+    </main>
+
+    <footer class="footer">数据存储于浏览器 LocalStorage，刷新不丢失。</footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
+
