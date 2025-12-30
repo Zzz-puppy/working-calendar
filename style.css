@@ -1,0 +1,386 @@
+/* 基础样式：简洁浅色系，保持可读性 */
+:root {
+  /* 整体底色改为非常淡的绿色打底 */
+  --bg: #e9f7f2;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --primary: #2563eb;
+  --border: #e5e7eb;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  /* 多层径向渐变叠加，营造浅绿色云雾感，绿色与白色相融 */
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0.0) 45%),
+    radial-gradient(circle at 80% 15%, rgba(190, 235, 215, 0.9) 0, rgba(190, 235, 215, 0.0) 45%),
+    radial-gradient(circle at 20% 75%, rgba(196, 240, 225, 0.9) 0, rgba(196, 240, 225, 0.0) 50%),
+    radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0.0) 50%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* 顶部 logo 区域（图标 + 文本） */
+.logo-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 52px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 顶部“Working Calender”艺术字效果 */
+.logo-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  /* 尽量贴近图片的手写风格，可根据需要调整顺序增加其他手写字体 */
+  font-family: "Pacifico", "Dancing Script", "Segoe Script", "Comic Sans MS",
+    "Inter", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  color: #133122;
+  letter-spacing: 1px;
+  /* 轻微倾斜，增加手写感 */
+  transform: skewX(-3deg);
+  /* 柔和的浅色描边，让字从绿色背景“浮”出来 */
+  text-shadow:
+    -1px -1px 0 rgba(255, 255, 255, 0.8),
+    1px -1px 0 rgba(255, 255, 255, 0.8),
+    -1px 1px 0 rgba(255, 255, 255, 0.8),
+    1px 1px 0 rgba(255, 255, 255, 0.8),
+    0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 22px;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 16px;
+  padding: 16px;
+}
+
+.card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border);
+}
+
+.month-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.month-switch button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.month-switch #month-label {
+  min-width: 120px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.day {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f9fafb;
+  min-height: 80px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.day:hover {
+  border-color: var(--primary);
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.day.today {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.day.selected {
+  background: #e0e7ff;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.task-count {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task-form {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.task-form button {
+  padding: 10px 16px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-item {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.task-meta {
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-row input[type="range"] {
+  flex: 1;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-actions button {
+  border: 1px solid var(--border);
+  background: var(--card);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.task-actions .danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.link-btn {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 16px;
+  color: var(--muted);
+}
+
+/* 桌面端：让主内容区域更“撑满”视口，减少底部留白 */
+@media (min-width: 961px) {
+  .layout {
+    min-height: calc(100vh - 150px); /* 大致扣掉 header 与 footer 高度 */
+    align-items: stretch;
+  }
+
+  .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .calendar {
+    flex: 1;
+  }
+
+  .task-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 移动端适配：更贴近手机上观感 */
+@media (max-width: 640px) {
+  body {
+    font-size: 15px;
+  }
+
+  .app-header {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(8px);
+  }
+
+  .logo-wrap {
+    gap: 8px;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 32px;
+  }
+
+  .logo-title {
+    font-size: 26px;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .month-switch {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .layout {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .card {
+    border-radius: 18px;
+    padding: 14px 12px;
+  }
+
+  .calendar {
+    gap: 6px;
+  }
+
+  .day {
+    min-height: 60px;
+    border-radius: 16px;
+  }
+
+  .task-form {
+    flex-direction: column;
+  }
+
+  .task-form button {
+    width: 100%;
+  }
+}
+
+
